@@ -28,7 +28,7 @@ jobs:
         run: pip install yamllint
 
       - name: Lint GitHub workflows
-        uses: rhysd/actionlint@v1
+        uses: rhysd/actionlint@v1.7.12
 
       - name: Lint GitHub YAML
         run: yamllint .github
