@@ -44,8 +44,8 @@ personal config.
 
 ## Supported Versions
 
-Only the current `master` branch is supported. There are no versioned releases
-with ongoing security maintenance.
+The latest tagged release and the current `master` branch are supported.
+Older releases do not receive security maintenance.
 
 ---
 

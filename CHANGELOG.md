@@ -7,6 +7,10 @@ Entries are grouped by theme, not by commit.
 
 ## [Unreleased]
 
+---
+
+## [v1.0.0] — 2026-04-19
+
 ### Added
 - `lua/config/` — centralized config layer with `init.lua` (defaults) and
   `local.lua.example` (per-machine template). All tunable values consolidated
