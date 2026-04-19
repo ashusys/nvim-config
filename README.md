@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/ashusys/nvim-config)](https://github.com/ashusys/nvim-config/blob/master/LICENSE.txt)
 [![Neovim](https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white)](https://neovim.io/)
 
-> Neovim 0.12 · zero lazy.nvim · built-in LSP · pure black & white
+> Neovim 0.12+ · zero lazy.nvim · built-in LSP · pure black & white
 
 A performance-first Neovim configuration engineered to replace VS Code as a
 daily driver on large monorepos. No plugin manager. No color. No compromise.
