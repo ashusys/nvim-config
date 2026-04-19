@@ -28,4 +28,5 @@ body:
         - label: I read README.md
         - label: I read INSTALL.md
         - label: I read KEYBINDINGS.md
-        - label: I read PERFORMANCE.md if this is performance-related
+        - label: >-
+          I read PERFORMANCE.md if this is performance-related
