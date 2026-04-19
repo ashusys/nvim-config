@@ -1,9 +1,9 @@
 # nvim
 
-[![CI](https://github.com/ashut0shk/nvim-config/actions/workflows/ci.yml/badge.svg)](https://github.com/ashut0shk/nvim-config/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/ashut0shk/nvim-config?display_name=tag&sort=semver)](https://github.com/ashut0shk/nvim-config/releases)
-[![Downloads](https://img.shields.io/github/downloads/ashut0shk/nvim-config/total)](https://github.com/ashut0shk/nvim-config/releases)
-[![License](https://img.shields.io/github/license/ashut0shk/nvim-config)](https://github.com/ashut0shk/nvim-config/blob/main/LICENSE.txt)
+[![CI](https://github.com/ashusys/nvim-config/actions/workflows/ci.yml/badge.svg)](https://github.com/ashusys/nvim-config/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/ashusys/nvim-config?display_name=tag&sort=semver)](https://github.com/ashusys/nvim-config/releases)
+[![Downloads](https://img.shields.io/github/downloads/ashusys/nvim-config/total)](https://github.com/ashusys/nvim-config/releases)
+[![License](https://img.shields.io/github/license/ashusys/nvim-config)](https://github.com/ashusys/nvim-config/blob/main/LICENSE.txt)
 [![Neovim](https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white)](https://neovim.io/)
 
 > Neovim 0.12 · zero lazy.nvim · built-in LSP · pure black & white
@@ -49,7 +49,7 @@ See [INSTALL.md](INSTALL.md) for full setup instructions.
 ## Quick Start
 
 ```sh
-git clone https://github.com/ashut0shk/nvim-config.git ~/.config/nvim
+git clone https://github.com/ashusys/nvim-config.git ~/.config/nvim
 nvim   # vim.pack installs plugins on first launch
 ```
 

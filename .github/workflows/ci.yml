@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   repo-hygiene:
-    if: github.repository == 'ashut0shk/nvim-config'
+    if: github.repository == 'ashusys/nvim-config'
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +51,7 @@ jobs:
           test -f README.md
           test -f LICENSE.txt
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html 'https://github.com/ashut0shk/nvim.git' .; then
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html 'https://github.com/ashusys/nvim.git' .; then
             echo 'Found legacy private/source repo URL' >&2
             exit 1
           fi

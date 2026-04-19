@@ -24,7 +24,7 @@ contains the design notes and module map.
 ## Release downloads
 
 The supported binary-style distribution for this project is the release asset
-zip published on the [GitHub Releases](https://github.com/ashut0shk/nvim-config/releases) page.
+zip published on the [GitHub Releases](https://github.com/ashusys/nvim-config/releases) page.
 Each tagged release publishes:
 
 - `nvim-config-<tag>.zip`

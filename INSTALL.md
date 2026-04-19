@@ -57,14 +57,14 @@ These four tools must be present — the config fails silently (or noisily) with
 
 ```sh
 # Option A: clone directly as your Neovim config
-git clone https://github.com/ashut0shk/nvim-config.git ~/.config/nvim
+git clone https://github.com/ashusys/nvim-config.git ~/.config/nvim
 
 # Option B: clone into a dotfiles repo and symlink
-git clone https://github.com/ashut0shk/nvim-config.git ~/dotfiles/nvim-config
+git clone https://github.com/ashusys/nvim-config.git ~/dotfiles/nvim-config
 ln -s ~/dotfiles/nvim-config ~/.config/nvim
 
 # Option C: download the latest release zip instead of cloning
-# https://github.com/ashut0shk/nvim-config/releases/latest
+# https://github.com/ashusys/nvim-config/releases/latest
 ```
 
 ---

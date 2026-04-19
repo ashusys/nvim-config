@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   publish:
-    if: github.repository == 'ashut0shk/nvim-config'
+    if: github.repository == 'ashusys/nvim-config'
     runs-on: ubuntu-latest
 
     steps:
