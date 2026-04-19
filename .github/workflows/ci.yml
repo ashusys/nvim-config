@@ -51,22 +51,28 @@ jobs:
           test -f README.md
           test -f LICENSE.txt
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html --exclude=ci.yml 'https://github.com/ashusys/nvim.git' .; then
+          shopt -s expand_aliases
+          alias repo_grep="grep -RInF \
+            --exclude-dir=.git \
+            --exclude=nvimkeymap.html \
+            --exclude=ci.yml"
+
+          if repo_grep 'https://github.com/ashusys/nvim.git' .; then
             echo 'Found legacy private/source repo URL' >&2
             exit 1
           fi
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html --exclude=ci.yml "$HOME/ansysdev" .; then
+          if repo_grep "$HOME/ansysdev" .; then
             echo 'Found machine-specific project root in public repo' >&2
             exit 1
           fi
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html --exclude=ci.yml 'LicensingPortal' .; then
+          if repo_grep 'LicensingPortal' .; then
             echo 'Found internal project name in public repo' >&2
             exit 1
           fi
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html --exclude=ci.yml 'ashutosh.kumar@ansys.com' .; then
+          if repo_grep 'ashutosh.kumar@ansys.com' .; then
             echo 'Found private email in public repo' >&2
             exit 1
           fi
