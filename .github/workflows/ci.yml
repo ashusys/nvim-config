@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repo-hygiene:
+    if: github.repository == 'ashut0shk/nvim-config'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install YAML linter
+        run: pip install yamllint
+
+      - name: Lint GitHub workflows
+        uses: rhysd/actionlint@v1
+
+      - name: Lint GitHub YAML
+        run: yamllint .github
+
+      - name: Validate shell scripts
+        run: |
+          mapfile -t scripts < <(find . -type f -name '*.sh' -not -path './.git/*')
+          if [ "${#scripts[@]}" -eq 0 ]; then
+            exit 0
+          fi
+          for script in "${scripts[@]}"; do
+            bash -n "$script"
+          done
+
+      - name: Validate public repo hygiene
+        run: |
+          test ! -e lua/config/local.lua
+          test ! -e lua/config/.env
+          test -e lua/config/local.lua.example
+          test -f README.md
+          test -f LICENSE.txt
+
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html 'https://github.com/ashut0shk/nvim.git' .; then
+            echo 'Found legacy private/source repo URL' >&2
+            exit 1
+          fi
+
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html '~/ansysdev' .; then
+            echo 'Found machine-specific project root in public repo' >&2
+            exit 1
+          fi
+
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html 'LicensingPortal' .; then
+            echo 'Found internal project name in public repo' >&2
+            exit 1
+          fi
+
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html 'ashutosh.kumar@ansys.com' .; then
+            echo 'Found private email in public repo' >&2
+            exit 1
+          fi

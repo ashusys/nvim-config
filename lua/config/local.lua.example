@@ -1,0 +1,44 @@
+-- ═════════════════════════════════════════════════════════════════════
+--  User overrides — copy this file to lua/config/local.lua
+--  Only uncomment the values you want to change.
+--  This file is gitignored — your settings survive git pull.
+-- ═════════════════════════════════════════════════════════════════════
+
+return {
+  -- ── Paths ───────────────────────────────────────────────────────────
+  -- home = '/home/your-user',
+
+  -- Root directory containing first-level git repos (for sessions + file cache).
+  -- project_root = vim.env.HOME .. '/myprojects',
+
+  -- ── Hardware ────────────────────────────────────────────────────────
+  -- max_threads = 8,          -- fff.nvim thread pool (auto-detected by default)
+  -- fd_threads  = 12,         -- fd thread count (default: max_threads + 4)
+  -- rg_threads  = 12,         -- ripgrep thread count (default: max_threads + 4)
+
+  -- ── Colorscheme ─────────────────────────────────────────────────────
+  -- colorscheme = 'habamax',
+
+  -- ── Timing (ms) ─────────────────────────────────────────────────────
+  -- updatetime          = 250,    -- CursorHold delay
+  -- timeoutlen          = 300,    -- leader key timeout
+  -- lsp_debounce_ms     = 80,     -- LSP didChange debounce
+  -- blame_debounce_ms   = 140,    -- inline git blame delay
+  -- gitsigns_debounce_ms = 250,   -- gitsigns update throttle
+  -- format_budget_ms    = 500,    -- max ms for range-formatting on save
+  -- prettierd_timeout   = 3000,   -- prettierd response timeout
+
+  -- ── Limits ──────────────────────────────────────────────────────────
+  -- bigfile_threshold = 256 * 1024,  -- bytes; features disabled above this
+  -- cache_ttl         = 172800,      -- file index cache validity (seconds)
+  -- undolevels        = 500,
+
+  -- ── UI ──────────────────────────────────────────────────────────────
+  -- sidebar_width        = 30,    -- oil.nvim sidebar columns
+  -- float_ratio          = 0.8,   -- floating terminal size (fraction of screen)
+  -- scrolloff            = 8,     -- lines kept above/below cursor
+  -- pumheight            = 8,     -- completion menu max visible items
+  -- wrap_column          = 80,    -- prose wrap / narrow-window threshold
+  -- finder_layout_height = 0.85,  -- fff.nvim picker height
+  -- finder_layout_width  = 0.85,  -- fff.nvim picker width
+}

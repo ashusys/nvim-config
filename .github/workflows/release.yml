@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to package and publish
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.repository == 'ashut0shk/nvim-config'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve tag
+        id: meta
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = 'workflow_dispatch' ]; then
+            TAG='${{ github.event.inputs.tag }}'
+          else
+            TAG='${GITHUB_REF_NAME}'
+          fi
+
+          git rev-parse "$TAG" >/dev/null 2>&1
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Build release archive
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          staging_dir="$(mktemp -d)"
+          mkdir -p "$staging_dir/nvim-config"
+
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.tmp-sess' \
+            --exclude='AGENTS.md' \
+            --exclude='BRAIN.md' \
+            --exclude='CODE_OF_CONDUCT.md' \
+            --exclude='CONTRIBUTING.md' \
+            --exclude='SUPPORT.md' \
+            ./ "$staging_dir/nvim-config/"
+
+          (cd "$staging_dir" && zip -qr "$RUNNER_TEMP/nvim-config-${TAG}.zip" nvim-config)
+          sha256sum "$RUNNER_TEMP/nvim-config-${TAG}.zip" > "$RUNNER_TEMP/nvim-config-${TAG}.zip.sha256"
+
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            ${{ runner.temp }}/nvim-config-${{ steps.meta.outputs.tag }}.zip
+            ${{ runner.temp }}/nvim-config-${{ steps.meta.outputs.tag }}.zip.sha256

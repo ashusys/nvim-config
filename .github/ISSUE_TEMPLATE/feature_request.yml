@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose a new feature or workflow improvement.
+title: '[feature] '
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or workflow gap
+      description: What pain point are you trying to solve?
+      placeholder: The current workflow breaks down when...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior you want.
+      placeholder: I would like...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Mention workarounds or competing approaches if you tried any.
+  - type: checkboxes
+    id: philosophy
+    attributes:
+      label: Project fit
+      options:
+        - label: This request does not require a plugin manager.
+        - label: This request does not remap single-key Vim built-ins.
+        - label: This request preserves the project's startup and reliability goals.

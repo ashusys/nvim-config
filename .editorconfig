@@ -1,0 +1,58 @@
+# Global editorconfig — applies unless a project has its own with root = true
+# Enforce root settings for this project
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+tab_width = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 160
+
+[*.{ts,tsx}]
+indent_size = 2
+max_line_length = 160
+
+[*.{js,jsx}]
+indent_size = 2
+max_line_length = 160
+
+[*.{yaml,yml}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.md]
+indent_size = 4
+trim_trailing_whitespace = false
+
+[*.{html,css,scss}]
+indent_size = 2
+
+[*.bicep]
+indent_size = 2
+
+[*.sh]
+indent_style = tab
+
+[*.py]
+indent_size = 4
+
+[Dockerfile]
+indent_style = space
+indent_size = 4
+
+[*.{docker-compose.yml,compose.yml}]
+indent_style = space
+indent_size = 2
+
+[*.toml]
+indent_style = space
+indent_size = 2
+
+[*.lua]
+indent_size = 2

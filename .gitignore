@@ -1,0 +1,4 @@
+# User-specific config overrides (copy local.lua.example → local.lua)
+lua/config/local.lua
+lua/config/.env
+.tmp-sess/

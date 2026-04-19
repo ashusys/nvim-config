@@ -1,0 +1,31 @@
+name: Usage help
+description: Ask for help using the config or understanding an existing behavior.
+title: '[help] '
+labels:
+  - question
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What are you trying to do?
+      placeholder: I want to understand how to...
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Explain what you tried and what happened.
+      placeholder: I tried...
+    validations:
+      required: true
+  - type: checkboxes
+    id: docs
+    attributes:
+      label: Docs checked
+      options:
+        - label: I read README.md
+        - label: I read INSTALL.md
+        - label: I read KEYBINDINGS.md
+        - label: I read PERFORMANCE.md if this is performance-related

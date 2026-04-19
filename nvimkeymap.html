@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>KEYBINDINGS</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<h1 id="neovim-0.12-keybindings-reference">Neovim 0.12 — Keybindings
+Reference</h1>
+<p><strong>Leader: <code>\</code></strong> · <strong>Vim grammar:
+untouched</strong> · <strong>No built-in collisions</strong></p>
+<hr />
+<h2 id="architecture">Architecture</h2>
+<p>Custom maps only use characters that are already prefix keys in Vim:
+<code>g</code> <code>[</code> <code>]</code> <code>\</code> (leader)
+<code>&lt;C-*&gt;</code> <code>&lt;S-*&gt;</code>
+<code>&lt;A-*&gt;</code></p>
+<p>No built-in single-key command is ever overridden with a multi-key
+combo.</p>
+<p><strong>Namespaces</strong> (always have extensions — never
+standalone): <code>\f*</code> Find · <code>\g*</code> Grep ·
+<code>\s*</code> Search/QF · <code>\b*</code> Buffer · <code>\c*</code>
+Code · <code>\h*</code> Hunk · <code>\t*</code> Toggle ·
+<code>\l*</code> LSP · <code>\G*</code> Git</p>
+<p><strong>Instant</strong> (single key after <code>\</code> — no
+extensions exist, 0ms):
+<code>\w \q \Q \e \T \j \J \1 \v \H \r \u \D \&lt;leader&gt;</code></p>
+<p><strong>g-prefix</strong> (Vim native prefix — zero added latency):
+<code>go</code> find files · <code>ga</code> live grep · <code>gz</code>
+revert buffer</p>
+<hr />
+<h2 id="fast-access-daily-operations">Fast Access — Daily
+Operations</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>go</code></td>
+<td>Find files (fzf, precached, respects ignore)</td>
+</tr>
+<tr>
+<td><code>ga</code></td>
+<td>Live grep (fzf + rg, respects ignore)</td>
+</tr>
+<tr>
+<td><code>\e</code></td>
+<td>Toggle sidebar with current file revealed</td>
+</tr>
+<tr>
+<td><code>gz</code></td>
+<td>Revert file to original (buffer → disk)</td>
+</tr>
+<tr>
+<td><code>&lt;A-d&gt;</code></td>
+<td>Diff file vs HEAD (side-by-side, ignore whitespace)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="find-namespace-f">Find Namespace — <code>\f</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\ff</code></td>
+<td>Find files (fzf, precached)</td>
+</tr>
+<tr>
+<td><code>\fd</code></td>
+<td>Find git diff files</td>
+</tr>
+<tr>
+<td><code>\fw</code></td>
+<td>Find git working files</td>
+</tr>
+<tr>
+<td><code>\fa</code></td>
+<td>Filter arglist (fzf)</td>
+</tr>
+<tr>
+<td><code>\fb</code></td>
+<td>Find buffer (native :ls :b)</td>
+</tr>
+<tr>
+<td><code>\fn</code></td>
+<td>Find native (:find wildmenu)</td>
+</tr>
+<tr>
+<td><code>\fl</code></td>
+<td>Newer quickfix list</td>
+</tr>
+<tr>
+<td><code>\fh</code></td>
+<td>Older quickfix list</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grep-namespace-g">Grep Namespace — <code>\g</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\gg</code></td>
+<td>Live grep (fzf + rg)</td>
+</tr>
+<tr>
+<td><code>\ga</code></td>
+<td>Grep arglist files</td>
+</tr>
+<tr>
+<td><code>\gb</code></td>
+<td>Grep buffer lines</td>
+</tr>
+<tr>
+<td><code>\gn</code></td>
+<td>Grep word under cursor (native :grep)</td>
+</tr>
+<tr>
+<td><code>\gq</code></td>
+<td>Refine quickfix (fzf)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="buffer-namespace-b">Buffer Namespace — <code>\b</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\bb</code></td>
+<td>Buffer picker (fzf)</td>
+</tr>
+<tr>
+<td><code>\bd</code></td>
+<td>Delete buffer (window-safe)</td>
+</tr>
+<tr>
+<td><code>\bD</code></td>
+<td>Delete other buffers</td>
+</tr>
+<tr>
+<td><code>\br</code></td>
+<td>Revert buffer to disk</td>
+</tr>
+<tr>
+<td><code>\bl</code></td>
+<td>Buffer list (MRU picker)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="code-namespace-c-lsp-buffer-local">Code Namespace —
+<code>\c</code> (LSP, buffer-local)</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\ca</code></td>
+<td>Code action</td>
+</tr>
+<tr>
+<td><code>\cr</code></td>
+<td>Rename symbol</td>
+</tr>
+<tr>
+<td><code>\cf</code></td>
+<td>Format buffer</td>
+</tr>
+<tr>
+<td><code>\co</code></td>
+<td>Document symbols (outline)</td>
+</tr>
+<tr>
+<td><code>\cO</code></td>
+<td>Workspace symbols</td>
+</tr>
+<tr>
+<td><code>\ci</code></td>
+<td>Incoming calls</td>
+</tr>
+<tr>
+<td><code>\cI</code></td>
+<td>Outgoing calls</td>
+</tr>
+<tr>
+<td><code>\ch</code></td>
+<td>Type hierarchy</td>
+</tr>
+<tr>
+<td><code>\cl</code></td>
+<td>Run codelens</td>
+</tr>
+<tr>
+<td><code>\cd</code></td>
+<td>cd to file directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="search-quickfix-s">Search / Quickfix — <code>\s</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\sa</code></td>
+<td>Highlight word under cursor</td>
+</tr>
+<tr>
+<td><code>\sd</code></td>
+<td>Clear quickfix list</td>
+</tr>
+<tr>
+<td><code>\sf</code></td>
+<td>Feed current line → quickfix</td>
+</tr>
+<tr>
+<td><code>\sp</code></td>
+<td>Replace pattern in quickfix (:cdo)</td>
+</tr>
+<tr>
+<td><code>\sr</code></td>
+<td>Replace pattern in qf files (:cfdo)</td>
+</tr>
+<tr>
+<td><code>\sq</code></td>
+<td>Diagnostics → quickfix</td>
+</tr>
+<tr>
+<td><code>\sc</code></td>
+<td>Filter quickfix (cfilter)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hunk-namespace-h-gitsigns-buffer-local">Hunk Namespace —
+<code>\h</code> (gitsigns, buffer-local)</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\hs</code></td>
+<td>Stage hunk</td>
+</tr>
+<tr>
+<td><code>\hr</code></td>
+<td>Reset hunk</td>
+</tr>
+<tr>
+<td><code>\hS</code></td>
+<td>Stage buffer</td>
+</tr>
+<tr>
+<td><code>\hu</code></td>
+<td>Undo stage hunk</td>
+</tr>
+<tr>
+<td><code>\hR</code></td>
+<td>Reset buffer</td>
+</tr>
+<tr>
+<td><code>\hp</code></td>
+<td>Preview hunk</td>
+</tr>
+<tr>
+<td><code>\hd</code></td>
+<td>Diff this</td>
+</tr>
+<tr>
+<td><code>\hD</code></td>
+<td>Diff this ~</td>
+</tr>
+<tr>
+<td><code>]c</code> / <code>[c</code></td>
+<td>Next / Prev hunk</td>
+</tr>
+<tr>
+<td><code>ih</code></td>
+<td>Hunk text object (visual/operator)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="git-namespace-g">Git Namespace — <code>\G</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\Gs</code></td>
+<td>Git status</td>
+</tr>
+<tr>
+<td><code>\Ga</code></td>
+<td>Git add current file</td>
+</tr>
+<tr>
+<td><code>\GA</code></td>
+<td>Git add all</td>
+</tr>
+<tr>
+<td><code>\Gc</code></td>
+<td>Git commit</td>
+</tr>
+<tr>
+<td><code>\Gp</code></td>
+<td>Git push</td>
+</tr>
+<tr>
+<td><code>\Gl</code></td>
+<td>Git log file</td>
+</tr>
+<tr>
+<td><code>\D</code></td>
+<td>Difftool file vs HEAD</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="instant-leader-keys-no-extensions">Instant Leader Keys — No
+Extensions</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\w</code></td>
+<td>Save</td>
+</tr>
+<tr>
+<td><code>\q</code></td>
+<td>Quit (smart — closes special windows, exits on editor)</td>
+</tr>
+<tr>
+<td><code>\Q</code></td>
+<td>Force quit all</td>
+</tr>
+<tr>
+<td><code>\e</code></td>
+<td>Toggle file explorer sidebar (oil)</td>
+</tr>
+<tr>
+<td><code>\T</code></td>
+<td>Toggle floating terminal</td>
+</tr>
+<tr>
+<td><code>\j</code></td>
+<td>Open quickfix</td>
+</tr>
+<tr>
+<td><code>\J</code></td>
+<td>Close quickfix</td>
+</tr>
+<tr>
+<td><code>\1</code></td>
+<td>Cycle windows</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>Vertical split</td>
+</tr>
+<tr>
+<td><code>\H</code></td>
+<td>Horizontal split</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>Replace word (cgn, <code>.</code> repeats)</td>
+</tr>
+<tr>
+<td><code>\u</code></td>
+<td>Undotree</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>Last buffer toggle</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="rest-client-k-buffer-local-.http-files-only">REST Client —
+<code>\k</code> (buffer-local, .http files only)</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\kr</code></td>
+<td>Run request under cursor</td>
+</tr>
+<tr>
+<td><code>\kl</code></td>
+<td>Run last request</td>
+</tr>
+<tr>
+<td><code>\ke</code></td>
+<td>Select env file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="toggles-t">Toggles — <code>\t</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Toggle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\tf</code></td>
+<td>Format on save</td>
+</tr>
+<tr>
+<td><code>\ts</code></td>
+<td>Statusline</td>
+</tr>
+<tr>
+<td><code>\th</code></td>
+<td>Search highlight</td>
+</tr>
+<tr>
+<td><code>\tw</code></td>
+<td>Word wrap</td>
+</tr>
+<tr>
+<td><code>\tn</code></td>
+<td>Line numbers</td>
+</tr>
+<tr>
+<td><code>\tr</code></td>
+<td>Relative numbers</td>
+</tr>
+<tr>
+<td><code>\ti</code></td>
+<td>Inlay hints</td>
+</tr>
+<tr>
+<td><code>\td</code></td>
+<td>Diagnostic virtual text</td>
+</tr>
+<tr>
+<td><code>\tb</code></td>
+<td>Git blame ghost text</td>
+</tr>
+<tr>
+<td><code>\tm</code></td>
+<td>Bracket matching</td>
+</tr>
+<tr>
+<td><code>&lt;S-m&gt;</code></td>
+<td>Search highlight (quick)</td>
+</tr>
+<tr>
+<td><code>gK</code></td>
+<td>Diagnostic virtual lines (current line)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lsp-l">LSP — <code>\l</code></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\lR</code></td>
+<td>Refresh LSP (restart all)</td>
+</tr>
+<tr>
+<td><code>\lS</code></td>
+<td>Stop all LSP</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="go-to-g-prefix-lsp-vim">Go-To — g-prefix (LSP &amp; Vim)</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gd</code></td>
+<td>Definition</td>
+</tr>
+<tr>
+<td><code>gD</code></td>
+<td>Declaration</td>
+</tr>
+<tr>
+<td><code>gy</code></td>
+<td>Type definition</td>
+</tr>
+<tr>
+<td><code>gI</code></td>
+<td>Implementation</td>
+</tr>
+<tr>
+<td><code>grr</code></td>
+<td>References</td>
+</tr>
+<tr>
+<td><code>K</code></td>
+<td>Hover documentation</td>
+</tr>
+<tr>
+<td><code>&lt;C-k&gt;</code></td>
+<td>Signature help</td>
+</tr>
+<tr>
+<td><code>gl</code></td>
+<td>Diagnostic float</td>
+</tr>
+<tr>
+<td><code>gh</code></td>
+<td>Copy diagnostic to clipboard</td>
+</tr>
+<tr>
+<td><code>gb</code></td>
+<td>Go back (tag stack)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sequential-navigation-brackets">Sequential Navigation —
+Brackets</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>]d</code> / <code>[d</code></td>
+<td>Next / Prev diagnostic</td>
+</tr>
+<tr>
+<td><code>]q</code> / <code>[q</code></td>
+<td>Next / Prev quickfix (wraps)</td>
+</tr>
+<tr>
+<td><code>]Q</code> / <code>[Q</code></td>
+<td>Newer / Older quickfix list</td>
+</tr>
+<tr>
+<td><code>]l</code> / <code>[l</code></td>
+<td>Next / Prev loclist</td>
+</tr>
+<tr>
+<td><code>]a</code> / <code>[a</code></td>
+<td>Next / Prev argument (wraps)</td>
+</tr>
+<tr>
+<td><code>]b</code> / <code>[b</code></td>
+<td>Next / Prev MRU buffer</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="buffers">Buffers</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-n&gt;</code> / <code>&lt;C-p&gt;</code></td>
+<td>Next / Prev buffer</td>
+</tr>
+<tr>
+<td><code>&lt;S-l&gt;</code> / <code>&lt;S-h&gt;</code></td>
+<td>Next / Prev buffer</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>Last buffer toggle</td>
+</tr>
+<tr>
+<td><code>\&lt;Tab&gt;</code></td>
+<td>Next MRU buffer</td>
+</tr>
+</tbody>
+</table>
+<h2 id="windows">Windows</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-h/j/k/l&gt;</code></td>
+<td>Window navigation</td>
+</tr>
+<tr>
+<td><code>&lt;C-Up/Down&gt;</code></td>
+<td>Resize height</td>
+</tr>
+<tr>
+<td><code>&lt;C-Left/Right&gt;</code></td>
+<td>Resize width</td>
+</tr>
+<tr>
+<td><code>&lt;C-b&gt;</code></td>
+<td>Widen window</td>
+</tr>
+<tr>
+<td><code>&lt;C-,&gt;</code> / <code>&lt;C-.&gt;</code></td>
+<td>Shrink / Grow height</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="insert-mode">Insert Mode</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;C-s&gt;</code></td>
+<td>Save</td>
+</tr>
+<tr>
+<td><code>&lt;C-v&gt;</code></td>
+<td>Paste from clipboard</td>
+</tr>
+<tr>
+<td><code>&lt;C-Space&gt;</code></td>
+<td>Trigger LSP completion</td>
+</tr>
+<tr>
+<td><code>&lt;C-k&gt;</code></td>
+<td>Signature help</td>
+</tr>
+<tr>
+<td><code>&lt;Tab&gt;</code> / <code>&lt;S-Tab&gt;</code></td>
+<td>Snippet jump → completion cycle → indent</td>
+</tr>
+<tr>
+<td><code>&lt;CR&gt;</code></td>
+<td>Confirm completion or newline</td>
+</tr>
+<tr>
+<td><code>&lt;Esc&gt;</code></td>
+<td>Dismiss completion or escape</td>
+</tr>
+<tr>
+<td><code>&lt;BS&gt;</code></td>
+<td>Smart backspace (deletes auto-pairs)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="visual-mode">Visual Mode</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>J</code> / <code>K</code></td>
+<td>Move lines down / up</td>
+</tr>
+<tr>
+<td><code>H</code> / <code>L</code></td>
+<td>Dedent / Indent</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>Paste (keep register)</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>Yank to clipboard</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>Delete to void register</td>
+</tr>
+<tr>
+<td><code>"</code> <code>'</code> <code>(</code> <code>[</code>
+<code>{</code> <code>`</code></td>
+<td>Surround selection</td>
+</tr>
+</tbody>
+</table>
+<h2 id="incremental-selection-treesitter">Incremental Selection
+(Treesitter)</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Mode</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;CR&gt;</code></td>
+<td>n</td>
+<td>Start selection at current node</td>
+</tr>
+<tr>
+<td><code>&lt;CR&gt;</code></td>
+<td>v</td>
+<td>Expand to parent node</td>
+</tr>
+<tr>
+<td><code>&lt;BS&gt;</code></td>
+<td>v</td>
+<td>Shrink back (history stack)</td>
+</tr>
+<tr>
+<td><code>&lt;Tab&gt;</code></td>
+<td>v</td>
+<td>Next sibling node</td>
+</tr>
+<tr>
+<td><code>&lt;S-Tab&gt;</code></td>
+<td>v</td>
+<td>Prev sibling node</td>
+</tr>
+</tbody>
+</table>
+<h2 id="normal-essentials">Normal Essentials</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code> / <code>X</code></td>
+<td>Delete char (void register)</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Disabled (no accidental macros)</td>
+</tr>
+<tr>
+<td><code>Q</code></td>
+<td>Record macro</td>
+</tr>
+<tr>
+<td><code>&lt;Esc&gt;</code></td>
+<td>Clear search highlight</td>
+</tr>
+<tr>
+<td><code>j</code> / <code>k</code></td>
+<td>Wrap-aware movement</td>
+</tr>
+<tr>
+<td><code>n</code> / <code>N</code></td>
+<td>Centered search</td>
+</tr>
+<tr>
+<td><code>J</code></td>
+<td>Join lines (cursor preserved)</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Open parent directory (oil)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="terminal">Terminal</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Mode</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\T</code></td>
+<td>n</td>
+<td>Toggle floating terminal</td>
+</tr>
+<tr>
+<td><code>&lt;Esc&gt;</code> / <code>qq</code></td>
+<td>t</td>
+<td>Exit terminal mode</td>
+</tr>
+<tr>
+<td><code>&lt;C-h/j/k/l&gt;</code></td>
+<td>t</td>
+<td>Window nav from terminal</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="text-objects-treesitter-operator-pending-visual">Text Objects
+(Treesitter — operator-pending + visual)</h2>
+<h3 id="jstsjsxtsx">JS/TS/JSX/TSX</h3>
+<p><code>ie</code> JSX element · <code>gcn</code> class name ·
+<code>gmn</code> method · <code>gvn</code> variable ·
+<code>gto</code>/<code>gtc</code> tag</p>
+<h3 id="python">Python</h3>
+<p><code>if</code>/<code>af</code> function ·
+<code>ic</code>/<code>ac</code> class ·
+<code>gfn</code>/<code>gcn</code> jump · <code>gfp</code> params ·
+<code>\gd</code> docstring</p>
+<hr />
+<h2 id="commands">Commands</h2>
+<p><code>:FormatToggle</code> · <code>:FormatToggleBuffer</code> ·
+<code>:BlameToggle</code> · <code>:BracketToggle</code>
+<code>:CacheRebuild</code> · <code>:CacheStatus</code> ·
+<code>:CacheParallel</code> · <code>:CachePriorityToggle</code>
+<code>:PerfReport</code> · <code>:ConfigEdit</code> ·
+<code>:ConfigReload</code> <code>:SessionSave</code> ·
+<code>:SessionLoad</code> · <code>:SessionDelete</code></p>
+<hr />
+<p><em>Leader <code>\</code> — zero collisions · ~26ms startup · Vim
+grammar untouched</em></p>
+</body>
+</html>
