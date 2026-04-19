@@ -31,7 +31,7 @@ jobs:
           if [ "${GITHUB_EVENT_NAME}" = 'workflow_dispatch' ]; then
             TAG='${{ github.event.inputs.tag }}'
           else
-            TAG='${GITHUB_REF_NAME}'
+            TAG="${GITHUB_REF_NAME}"
           fi
 
           git rev-parse "$TAG" >/dev/null 2>&1

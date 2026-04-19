@@ -56,7 +56,7 @@ jobs:
             exit 1
           fi
 
-          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html '~/ansysdev' .; then
+          if grep -RInF --exclude-dir=.git --exclude=nvimkeymap.html "$HOME/ansysdev" .; then
             echo 'Found machine-specific project root in public repo' >&2
             exit 1
           fi
