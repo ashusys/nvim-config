@@ -52,7 +52,7 @@ genuinely useful additions are welcome.
 
 ## How to Submit a Fix
 
-1. Fork the repo and create a branch from `main`.
+1. Fork the repo and create a branch from `master`.
 2. Make the smallest change that fixes the problem.
 3. Verify with `:checkhealth` and a headless smoke-test:
    ```sh
