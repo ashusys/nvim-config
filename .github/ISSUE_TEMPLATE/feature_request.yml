@@ -32,5 +32,4 @@ body:
       options:
         - label: This request does not require a plugin manager.
         - label: This request does not remap single-key Vim built-ins.
-        - label: >-
-          This request preserves the project's startup and reliability goals.
+        - label: This request preserves the project's startup and reliability goals.
