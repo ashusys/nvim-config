@@ -15,6 +15,10 @@ local prettier_ft = {
   handlebars = true,
 }
 
+-- Circuit breaker: disable prettierd for this session after 3 consecutive failures.
+local _fail_count = 0
+local _FAIL_MAX = 3
+
 --- Run prettierd on a buffer (sync).
 --- Returns:
 ---   'formatted'  — ran and changed the buffer
@@ -22,6 +26,7 @@ local prettier_ft = {
 ---   false        — not applicable (wrong ft, no executable, error, …)
 function M.prettierd_format(bufnr)
   if vim.fn.executable('prettierd') ~= 1 then return false end
+  if _fail_count >= _FAIL_MAX then return false end
   if not prettier_ft[vim.bo[bufnr].filetype] then return false end
   local fname = vim.api.nvim_buf_get_name(bufnr)
   if fname == '' then return false end
@@ -30,7 +35,17 @@ function M.prettierd_format(bufnr)
     { 'prettierd', fname },
     { stdin = table.concat(lines, '\n') .. '\n', timeout = require('config').prettierd_timeout }
   ):wait()
-  if result.code ~= 0 then return false end
+  if result.code ~= 0 then
+    _fail_count = _fail_count + 1
+    local msg = (result.stderr and result.stderr ~= '') and vim.trim(result.stderr) or 'non-zero exit'
+    if _fail_count >= _FAIL_MAX then
+      vim.notify('prettierd failed ' .. _FAIL_MAX .. 'x (' .. msg .. '), disabling for this session', vim.log.levels.WARN)
+    else
+      vim.notify('prettierd: ' .. msg, vim.log.levels.WARN)
+    end
+    return false
+  end
+  _fail_count = 0
   local new_lines = vim.split(result.stdout, '\n', { plain = true })
   -- prettierd always appends a trailing newline; trim the empty last element
   if new_lines[#new_lines] == '' then new_lines[#new_lines] = nil end

@@ -44,9 +44,15 @@ function M.get(dir)
 
   _cache_count = _cache_count + 1
   if _cache_count > CACHE_MAX then
-    -- Simple eviction: drop everything; next queries will repopulate.
-    _cache = {}
-    _cache_count = 0
+    -- Partial eviction: drop ~25% of entries rather than flushing everything,
+    -- which avoids a git rev-parse spike after the 200th unique directory.
+    local evict = math.floor(CACHE_MAX / 4)
+    for dir in pairs(_cache) do
+      _cache[dir] = nil
+      _cache_count = _cache_count - 1
+      evict = evict - 1
+      if evict == 0 then break end
+    end
   end
 
   return root
@@ -58,8 +64,13 @@ function M.store(dir, root)
   if _cache[dir] == nil then _cache_count = _cache_count + 1 end
   _cache[dir] = root or false
   if _cache_count > CACHE_MAX then
-    _cache = {}
-    _cache_count = 0
+    local evict = math.floor(CACHE_MAX / 4)
+    for d in pairs(_cache) do
+      _cache[d] = nil
+      _cache_count = _cache_count - 1
+      evict = evict - 1
+      if evict == 0 then break end
+    end
   end
 end
 

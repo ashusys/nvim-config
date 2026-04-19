@@ -85,9 +85,17 @@ local function refresh_fname()
   end
 end
 
+local _fname_refresh_pending = false
 vim.api.nvim_create_autocmd({ 'BufModifiedSet', 'DirChanged' }, {
   group = vim.api.nvim_create_augroup('StatusFname', { clear = true }),
-  callback = function() vim.schedule(refresh_fname) end,
+  callback = function()
+    if _fname_refresh_pending then return end
+    _fname_refresh_pending = true
+    vim.schedule(function()
+      refresh_fname()
+      _fname_refresh_pending = false
+    end)
+  end,
 })
 vim.schedule(refresh_fname)
 
