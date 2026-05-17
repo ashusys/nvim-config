@@ -8,7 +8,7 @@
 
 > Neovim 0.12+ · zero lazy.nvim · built-in LSP · pure black & white
 
-A performance-first Neovim configuration engineered to replace VS Code as a
+A highly opinionated performance-first Neovim configuration engineered to replace VS Code as a
 daily driver on large monorepos. No plugin manager. No color. No compromise.
 
 ---
